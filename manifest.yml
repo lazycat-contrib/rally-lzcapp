@@ -1,0 +1,38 @@
+lzc-sdk-version: "0.1"
+name: Rally
+package: cloud.lazycat.app.rally
+version: 3.11.2
+description: 会议及日程安排软件
+homepage: https://github.com/lukevella/rallly
+author: lukevella
+application:
+  subdomain: rally
+  background_task: true
+  multi_instance: false
+  gpu_accel: false
+  kvm_accel: false
+  usb_accel: false
+  routes:
+    - /=http://rallly.cloud.lazycat.app.rally.lzcapp:3000/
+services:
+  rallly_db:
+    image: registry.lazycat.cloud/czyt/library/postgres:d6809f4833ca6caf
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db
+    binds:
+      - /lzcapp/var/data:/var/lib/postgresql/data
+    health_check:
+      test:
+        - CMD-SHELL
+        - pg_isready -U postgres
+  rallly:
+    image: registry.lazycat.cloud/czyt/lukevella/rallly:2eb1cc485eb6dcf8
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@rallly_db/db
+      - NEXT_PUBLIC_BASE_URL=https://${LAZYCAT_APP_DOMAIN}
+      - SECRET_PASSWORD=mlKTs+/jCzGT+vnJOMYQAOBhOzN9ORmmRW3OxC1vPvQ
+      - SUPPORT_EMAIL=lazycat@lazycat.cloud
+
+    depends_on:
+      - rallly_db

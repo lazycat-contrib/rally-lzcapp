@@ -1,0 +1,38 @@
+{
+  "name": "Rally",
+  "package": "cloud.lazycat.app.rally",
+  "description": "会议及日程安排软件",
+  "homepage": "https://github.com/lukevella/rallly",
+  "author": "lukevella",
+  "app_features": [
+    "background_task"
+  ],
+  "subdomain": "rally",
+  "version": "3.11.2",
+  "iconPath": "rallly-logo-mark.png",
+  "composePath": "docker-compose.yml",
+  "unsupported_platforms": [],
+  "lastRouteType": "from_compose",
+  "port_mappings": {
+    "rallly_3000_3000": {
+      "use": true,
+      "type": "http",
+      "path": "/",
+      "targetPath": "/"
+    }
+  },
+  "image_postgres_14.2": {
+    "originalImage": "postgres:14.2",
+    "pushTarget": "lazycat",
+    "newImageName": "registry.lazycat.cloud/czyt/library/postgres:d6809f4833ca6caf",
+    "timestamp": "2025-02-15T05:58:14.929Z"
+  },
+  "rallly_db_volume_db-data_/var/lib/postgresql/data_action": "emptyDir",
+  "rallly_db_volume_/var/lib/postgresql/data_location": "app_data",
+  "image_lukevella_rallly_latest": {
+    "originalImage": "lukevella/rallly:latest",
+    "pushTarget": "lazycat",
+    "newImageName": "registry.lazycat.cloud/czyt/lukevella/rallly:2eb1cc485eb6dcf8",
+    "timestamp": "2025-02-15T06:00:11.415Z"
+  }
+}
