@@ -1,0 +1,30 @@
+application:
+  subdomain: rally
+  background_task: true
+  multi_instance: false
+  upstreams:
+    - location: /
+      backend: http://rallly:3000/
+services:
+  rallly_db:
+    # upstream: library/postgres:14.24-alpine
+    image: docker.1ms.run/library/postgres:14.24-alpine
+    environment:
+      - POSTGRES_PASSWORD={{ stable_secret "db_password" }}
+      - POSTGRES_DB=db
+    binds:
+      - /lzcapp/var/data:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U postgres
+  rallly:
+    # upstream: lukevella/rallly:4.15.1
+    image: docker.1ms.run/lukevella/rallly:4.15.1
+    environment:
+      - DATABASE_URL=postgres://postgres:{{ stable_secret "db_password" }}@rallly_db/db
+      - NEXT_PUBLIC_BASE_URL=https://${LAZYCAT_APP_DOMAIN}
+      - SECRET_PASSWORD={{ stable_secret "secret_password" }}
+      - SUPPORT_EMAIL=lazycat@lazycat.cloud
+    depends_on:
+      - rallly_db

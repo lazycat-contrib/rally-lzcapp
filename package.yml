@@ -1,0 +1,14 @@
+package: cloud.lazycat.app.rally
+version: 3.11.2
+name: Rally
+description: "会议及日程安排软件"
+min_os_version: "1.5.0"
+homepage: https://github.com/lukevella/rallly
+author: lukevella
+locales:
+  zh:
+    description: "会议及日程安排软件"
+    name: Rally
+  en:
+    description: "Meeting and scheduling software"
+    name: Rally
