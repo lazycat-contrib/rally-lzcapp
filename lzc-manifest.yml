@@ -19,8 +19,8 @@ services:
         - CMD-SHELL
         - pg_isready -U postgres
   rallly:
-    # upstream: lukevella/rallly:4.15.1
-    image: docker.1ms.run/lukevella/rallly:4.15.1
+    # upstream: lukevella/rallly:4.15.2
+    image: docker.1ms.run/lukevella/rallly:4.15.2
     environment:
       - DATABASE_URL=postgres://postgres:{{ stable_secret "db_password" }}@rallly_db/db
       - NEXT_PUBLIC_BASE_URL=https://${LAZYCAT_APP_DOMAIN}
