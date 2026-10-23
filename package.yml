@@ -1,6 +1,6 @@
 package: cloud.lazycat.app.rally
 license: AGPL-3.0
-version: 4.16.1
+version: 4.16.2
 name: Rally
 description: "会议及日程安排软件"
 min_os_version: "1.5.0"
